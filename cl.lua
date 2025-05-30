@@ -34,6 +34,16 @@ function nTable(n, none)
     return t
 end
 
+local hairs = { {}, {} }
+
+for k, v in pairs(Config.Hair[1]) do
+    table.insert(hairs[1], v)
+end
+
+for k, v in pairs(Config.Hair[2]) do
+    table.insert(hairs[2], v)
+end
+
 local mothers = {}
 local fathers = {}
 local mothersRev = {}
@@ -59,6 +69,11 @@ end
 for i, v in ipairs(Config.Parents.OrderDad) do
     heritageFather[v] = i
 end
+
+local colCache = {
+    hairOne = 1,
+    hairTwo = 1,
+}
 
 local save = {}
 local state = {
@@ -274,6 +289,9 @@ function apply()
             }
         end
     end
+    state.Components[Config.Components.HairStyle] = { 0, nil } -- TODO: set hair randomly from sex-based pool
+    SetPedComponentVariation(PlayerPedId(), Config.Components.HairStyle, state.Components[Config.Components.HairStyle]
+        [1], 0, 0)
     for _, prop in pairs(Config.Props) do
         state.Props[prop] = {
             GetPedPropIndex(PlayerPedId(), prop) + 2,
@@ -287,6 +305,8 @@ function apply()
                 ((i == 1 and featureData.inverseX or featureData.inverseY) and -1 or 1))
         end
     end
+    SetPedEyeColor(PlayerPedId(), state.EyeColour)
+    SetPedHairTint(PlayerPedId(), state.HairColour[1], state.HairColour[2])
     SetPedHeadBlendData(PlayerPedId(), state.Parents.Mother, state.Parents.Father, 0, state.Parents.Mother,
         state.Parents.Father, 0, state.Parents.MixChar, state.Parents.MixSkin, 0, false)
 end
@@ -403,6 +423,49 @@ function RageUI.PoolMenus:Skin()
             end
         end
     end)
+
+    appearanceMenu:IsVisible(function(Items)
+        for i, v in ipairs(Config.Menu.Appearance) do
+            if v.type == "Component" then
+                Items:AddList("Hair", Config.Hair[state.Sex], GetPedDrawableVariation(PlayerPedId(), v.name) + 1, nil, {},
+                    function(Index, onSelected, onListChange)
+                        if onListChange then
+                            state.Components[v.name] = { Index, 0 }
+                            SetPedComponentVariation(PlayerPedId(), v.name, Index - 1, 0, 0)
+                        end
+                    end)
+            elseif v.type == "EyeColour" then
+                Items:AddList("Eye Color", Config.EyeColours, GetPedEyeColor(PlayerPedId()),
+                    "Make changes to your Appearance", {}, function(Index, onSelected, onListChange)
+                        if onListChange then
+                            state.EyeColour = Index
+                            SetPedEyeColor(PlayerPedId(), state.EyeColour)
+                        end
+                    end)
+            end
+        end
+    end, function(Panels)
+        for i, v in ipairs(Config.Menu.Appearance) do
+            if v.type == "Component" then
+                Panels:ColourPanel("Hair Color", RageUI.PanelColour.HairCut, colCache.hairOne,
+                    GetPedHairColor(PlayerPedId()) + 1, function(Hovered, Selected, MinimumIndex, CurrentIndex)
+                        if Selected then
+                            colCache.hairOne = MinimumIndex
+                            state.HairColour[1] = CurrentIndex - 1
+                            SetPedHairTint(PlayerPedId(), CurrentIndex - 1, state.HairColour[2])
+                        end
+                    end, i)
+                Panels:ColourPanel("Hair Color (Highlight)", RageUI.PanelColour.HairCut, colCache.hairTwo,
+                    GetPedHairHighlightColor(PlayerPedId()) + 1,
+                    function(Hovered, Selected, MinimumIndex, CurrentIndex)
+                        if Selected then
+                            colCache.hairTwo = MinimumIndex
+                            state.HairColour[2] = CurrentIndex - 1
+                            SetPedHairTint(PlayerPedId(), state.HairColour[1], CurrentIndex - 1)
+                        end
+                    end, i)
+            end
+        end
     end)
 
     apparelMenu:IsVisible(function(Items)
