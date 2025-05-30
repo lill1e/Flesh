@@ -110,57 +110,76 @@ Config = {
         Nose = {
             gridType = 1,
             features = { 0, 1 },
-            gridLabels = {}
+            gridLabels = { "Narrow", "Wide", "Up", "Down" },
+            inverseX = false,
+            inverseY = false
         },
         NoseProfile = {
             gridType = 1,
             features = { 2, 3 },
-            gridLabels = {}
+            gridLabels = { "Short", "Long", "Crooked", "Curved" },
+            inverseX = true,
+            inverseY = false
         },
         NoseTip = {
             gridType = 1,
-            features = { 4, 5 },
-            gridLabels = {}
+            features = { 5, 4 },
+            gridLabels = { "Broken Left", "Broken Right", "Tip Up", "Tip Down" },
+            inverseX = false,
+            inverseY = true
         },
         Brow = {
             gridType = 1,
-            features = { 6, 7 },
-            gridLabels = {}
+            features = { 7, 6 },
+            gridLabels = { "In", "Out", "Up", "Down" },
+            inverseX = false,
+            inverseY = false
         },
         Cheekbones = {
             gridType = 1,
-            features = { 8, 9 },
-            gridLabels = {}
+            features = { 9, 8 },
+            gridLabels = { "In", "Out", "Up", "Down" },
+            inverseX = false,
+            inverseY = false
         },
         Cheeks = {
             gridType = 0,
             features = { 10 },
-            gridLabels = {}
+            gridLabels = { "Gaunt", "Puffed" },
+            inverseX = true
         },
         Eyes = {
             gridType = 0,
             features = { 11 },
-            gridLabels = {}
+            gridLabels = { "Squint", "Wide" },
+            inverseX = true
         },
         Lips = {
             gridType = 0,
             features = { 12 },
-            gridLabels = {}
+            gridLabels = { "Thin", "Fat" },
+            inverseX = true
         },
         Jaw = {
             gridType = 1,
             features = { 13, 14 },
-            gridLabels = {}
+            gridLabels = { "Narrow", "Wide", "Round", "Square" },
+            inverseX = false,
+            inverseY = false
         },
         ChinProfile = {
             gridType = 1,
-            features = { 15, 16 },
-            gridLabels = {}
+            features = { 16, 15 },
+            gridLabels = { "In", "Out", "Up", "Down" },
+            inverseX = false,
+            inverseY = false
         },
         ChinShape = {
             gridType = 1,
             features = { 17, 18 },
-            gridLabels = {}
+            gridLabels = { "Square", "Pointed", "Rounded", "Bum" },
+            inverseX = true,
+            inverseY = false
         }
     },
     Overlays = {

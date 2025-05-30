@@ -280,6 +280,13 @@ function apply()
             GetPedPropTextureIndex(PlayerPedId(), prop) + 1
         }
     end
+    for feature, featureData in pairs(Config.Features) do
+        for i, featureNum in ipairs(featureData.features) do
+            SetPedFaceFeature(PlayerPedId(), featureNum,
+                (state.Features[featureNum] * 2 - 1) *
+                ((i == 1 and featureData.inverseX or featureData.inverseY) and -1 or 1))
+        end
+    end
     SetPedHeadBlendData(PlayerPedId(), state.Parents.Mother, state.Parents.Father, 0, state.Parents.Mother,
         state.Parents.Father, 0, state.Parents.MixChar, state.Parents.MixSkin, 0, false)
 end
@@ -363,6 +370,38 @@ function RageUI.PoolMenus:Skin()
                 end
             end)
     end, function(Panels)
+    end)
+
+    featuresMenu:IsVisible(function(Items)
+        for _, v in ipairs(Config.Menu.Features) do
+            Items:AddButton(v.displayName, "Make changes to your Features", {}, function(_)
+
+            end)
+        end
+    end, function(Panels)
+        for i, v in ipairs(Config.Menu.Features) do
+            local data = Config[v.type][v.name]
+            if data.gridType == 0 then
+                Panels:GridHorizontal(state[v.type][data.features[1]], Config[v.type][v.name].gridLabels[1],
+                    Config[v.type][v.name].gridLabels[2], function(X, _, _, _)
+                        state.Features[data.features[1]] = X
+                        SetPedFaceFeature(PlayerPedId(), data.features[1],
+                            (state.Features[data.features[1]] * 2 - 1) * (data.inverseX and -1 or 1))
+                    end, i)
+            elseif data.gridType == 1 then
+                Panels:Grid(state[v.type][data.features[1]], state[v.type][data.features[2]],
+                    Config[v.type][v.name].gridLabels[3], Config[v.type][v.name].gridLabels[4],
+                    Config[v.type][v.name].gridLabels[1], Config[v.type][v.name].gridLabels[2],
+                    function(X, Y, _, _)
+                        state.Features[data.features[1]] = X
+                        state.Features[data.features[2]] = Y
+                        SetPedFaceFeature(PlayerPedId(), data.features[1],
+                            (state.Features[data.features[1]] * 2 - 1) * (data.inverseX and -1 or 1))
+                        SetPedFaceFeature(PlayerPedId(), data.features[2],
+                            (state.Features[data.features[2]] * 2 - 1) * (data.inverseY and -1 or 1))
+                    end, i)
+            end
+        end
     end)
     end)
 
