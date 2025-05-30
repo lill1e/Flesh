@@ -60,6 +60,7 @@ for i, v in ipairs(Config.Parents.OrderDad) do
     heritageFather[v] = i
 end
 
+local save = {}
 local state = {
     Sex = RandomSex(),
     Parents = {
