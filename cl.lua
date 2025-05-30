@@ -36,21 +36,37 @@ end
 
 local mothers = {}
 local fathers = {}
+local mothersRev = {}
+local fathersRev = {}
+local heritageMother = {}
+local heritageFather = {}
 
-for _, v in pairs(Config.Parents.Mom) do
-    table.insert(mothers, v)
+for k, _ in pairs(Config.Parents.Mom) do
+    table.insert(mothers, k)
 end
-for _, v in pairs(Config.Parents.Dad) do
-    table.insert(fathers, v)
+for k, _ in pairs(Config.Parents.Dad) do
+    table.insert(fathers, k)
+end
+for i, v in ipairs(mothers) do
+    mothersRev[v] = i
+end
+for i, v in ipairs(fathers) do
+    fathersRev[v] = i
+end
+for i, v in ipairs(Config.Parents.OrderMom) do
+    heritageMother[v] = i
+end
+for i, v in ipairs(Config.Parents.OrderDad) do
+    heritageFather[v] = i
 end
 
 local state = {
     Sex = RandomSex(),
     Parents = {
-        Mother = math.random(#mothers),
-        Father = math.random(#fathers),
-        MixChar = math.random(0, 10) / 10,
-        MixSkin = math.random(0, 10) / 10,
+        Mother = -1,
+        Father = -1,
+        MixChar = 0.5,
+        MixSkin = 0.5,
     },
     Features = {
         [0] = (math.random(0, 20) - 10) / 10,
@@ -135,13 +151,17 @@ local state = {
 }
 
 function RandomizeAppearance()
+    local mom = mothers[math.random(#mothers)]
+    local dad = fathers[math.random(#fathers)]
     state = {
         Sex = state.Sex,
         Parents = {
-            Mother = -1,
-            Father = -1,
-            MixChar = 0,
-            MixSkin = 0,
+            Mother = Config.Parents.Mom[mom],
+            MotherIndex = mothersRev[mom],
+            Father = Config.Parents.Dad[dad],
+            FatherIndex = fathersRev[dad],
+            MixChar = math.random(0, 10) / 10,
+            MixSkin = math.random(0, 10) / 10,
         },
         Features = {
             [0] = (math.random(0, 10) - 1) / 10,
@@ -253,6 +273,51 @@ function RageUI.PoolMenus:Skin()
         Items:AddButton("Apparel", "", { RightLabel = "→→→" }, function(onSelected) end, apparelMenu)
     end, function(Panels)
 
+    heritageMenu:IsVisible(function(Items)
+        Items:Heritage(heritageMother[mothers[state.Parents.MotherIndex]] - 1, heritageFather
+            [fathers[state.Parents.FatherIndex]] - 1)
+        Items:AddList("Mom", mothers, state.Parents.MotherIndex, "Select your Mom", {},
+            function(Index, onSelected, onListChange)
+                if onListChange then
+                    state.Parents.MotherIndex = Index
+                    state.Parents.Mother = Config.Parents.Mom[mothers[state.Parents.MotherIndex]]
+                    SetPedHeadBlendData(PlayerPedId(), state.Parents.Mother, state.Parents.Father, 0,
+                        state.Parents.Mother,
+                        state.Parents.Father, 0, state.Parents.MixChar, state.Parents.MixSkin, 0, false)
+                end
+            end)
+        Items:AddList("Dad", fathers, state.Parents.FatherIndex, "Select your Dad", {},
+            function(Index, onSelected, onListChange)
+                if onListChange then
+                    state.Parents.FatherIndex = Index
+                    state.Parents.Father = Config.Parents.Dad[fathers[state.Parents.FatherIndex]]
+                    SetPedHeadBlendData(PlayerPedId(), state.Parents.Mother, state.Parents.Father, 0,
+                        state.Parents.Mother,
+                        state.Parents.Father, 0, state.Parents.MixChar, state.Parents.MixSkin, 0, false)
+                end
+            end)
+        Items:HeritageSlider("Resemblance", state.Parents.MixChar * 10,
+            "Select if your features are influenced more by your Mother or Father",
+            function(Index, onSelected, onListChange)
+                if onListChange then
+                    state.Parents.MixChar = Index / 10
+                    SetPedHeadBlendData(PlayerPedId(), state.Parents.Mother, state.Parents.Father, 0,
+                        state.Parents.Mother,
+                        state.Parents.Father, 0, state.Parents.MixChar, state.Parents.MixSkin, 0, false)
+                end
+            end)
+        Items:HeritageSlider("Skin Tone", state.Parents.MixSkin * 10,
+            "Select if your skin tone is influenced more by your Mother or Father",
+            function(Index, onSelected, onListChange)
+                if onListChange then
+                    state.Parents.MixSkin = Index / 10
+                    SetPedHeadBlendData(PlayerPedId(), state.Parents.Mother, state.Parents.Father, 0,
+                        state.Parents.Mother,
+                        state.Parents.Father, 0, state.Parents.MixChar, state.Parents.MixSkin, 0, false)
+                end
+            end)
+    end, function(Panels)
+    end)
     end)
 
     apparelMenu:IsVisible(function(Items)
