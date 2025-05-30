@@ -346,3 +346,12 @@ function RageUI.PoolMenus:Skin()
 
     end)
 end
+
+Citizen.CreateThread(function()
+    while true do
+        Wait(0)
+        if IsControlJustPressed(0, 11) then
+            RageUI.Visible(menu, not RageUI.Visible(menu))
+        end
+    end
+end)
