@@ -243,6 +243,19 @@ function RandomizeAppearance()
     }
 end
 
+function apply()
+    local model = Config.Models[state.Sex]
+    RequestModel(model)
+    while not HasModelLoaded(model) do
+        Wait(0)
+    end
+    SetPlayerModel(PlayerId(), model)
+    SetModelAsNoLongerNeeded(model)
+    SetPedDefaultComponentVariation(PlayerPedId())
+    SetPedHeadBlendData(PlayerPedId(), state.Parents.Mother, state.Parents.Father, 0, state.Parents.Mother,
+        state.Parents.Father, 0, state.Parents.MixChar, state.Parents.MixSkin, 0, false)
+end
+
 function GetFeatureValue(value, inverseHuh)
     return (value * 2 - 1) * (inverseHuh and -1 or 1)
 end
@@ -252,16 +265,7 @@ function RageUI.PoolMenus:Skin()
         Items:AddList("Sex", { "Male", "Female" }, state.Sex, "", {}, function(Index, onSelected, onListChange)
             if onListChange then
                 state.Sex = Index
-                local model = Config.Models[state.Sex]
-                RequestModel(model)
-                while not HasModelLoaded(model) do
-                    Wait(0)
-                end
-                SetPlayerModel(PlayerId(), model)
-                SetModelAsNoLongerNeeded(model)
-                SetPedDefaultComponentVariation(PlayerPedId())
-
-                -- change model
+                apply()
             end
         end)
         Items:AddButton("Heritage", "", { RightLabel = "→→→" }, function(onSelected) end, heritageMenu)
