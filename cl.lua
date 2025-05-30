@@ -144,8 +144,10 @@ local state = {
             overlay = 12
         }
     },
-    Props = {}
     Components = {},
+    Props = {},
+    EyeColour = 1,
+    HairColour = { GetPedHairColor(PlayerPedId()) - 1, GetPedHairHighlightColor(PlayerPedId()) - 1 }
 }
 
 function RandomizeAppearance()
@@ -248,8 +250,10 @@ function RandomizeAppearance()
                 index = math.random(GetPedHeadOverlayNum(12) + 1) - 1
             }
         },
-        Props = {}
         Components = {},
+        Props = {},
+        EyeColour = 1,
+        HairColour = { GetPedHairColor(PlayerPedId()) - 1, GetPedHairHighlightColor(PlayerPedId()) - 1 }
     }
 end
 
