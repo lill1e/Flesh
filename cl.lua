@@ -69,57 +69,57 @@ local state = {
         MixSkin = 0.5,
     },
     Features = {
-        [0] = (math.random(0, 20) - 10) / 10,
-        [1] = (math.random(0, 20) - 10) / 10,
-        [2] = (math.random(0, 20) - 10) / 10,
-        [3] = (math.random(0, 20) - 10) / 10,
-        [4] = (math.random(0, 20) - 10) / 10,
-        [5] = (math.random(0, 20) - 10) / 10,
-        [6] = (math.random(0, 20) - 10) / 10,
-        [7] = (math.random(0, 20) - 10) / 10,
-        [8] = (math.random(0, 20) - 10) / 10,
-        [9] = (math.random(0, 20) - 10) / 10,
-        [10] = (math.random(0, 20) - 10) / 10,
-        [11] = (math.random(0, 20) - 10) / 10,
-        [12] = (math.random(0, 20) - 10) / 10,
-        [13] = (math.random(0, 20) - 10) / 10,
-        [14] = (math.random(0, 20) - 10) / 10,
-        [15] = (math.random(0, 20) - 10) / 10,
-        [16] = (math.random(0, 20) - 10) / 10,
-        [17] = (math.random(0, 20) - 10) / 10,
-        [18] = (math.random(0, 20) - 10) / 10
+        [0] = 0.5,
+        [1] = 0.5,
+        [2] = 0.5,
+        [3] = 0.5,
+        [4] = 0.5,
+        [5] = 0.5,
+        [6] = 0.5,
+        [7] = 0.5,
+        [8] = 0.5,
+        [9] = 0.5,
+        [10] = 0.5,
+        [11] = 0.5,
+        [12] = 0.5,
+        [13] = 0.5,
+        [14] = 0.5,
+        [15] = 0.5,
+        [16] = 0.5,
+        [17] = 0.5,
+        [18] = 0.5
     },
     Overlays = {
         Blemishes = {
             overlay = 0,
-            opacity = math.random(0, 10) / 10
+            opacity = 0
         },
         FacialHair = {
             overlay = 1,
             colour = math.random(GetPedHeadOverlayNum(1) + 1) - 1,
-            opacity = math.random(0, 10) / 10
+            opacity = 0
         },
         Eyebrows = {
             overlay = 2,
             colour = math.random(GetPedHeadOverlayNum(2) + 1) - 1,
-            opacity = math.random(0, 10) / 10
+            opacity = 0
         },
         Ageing = {
             overlay = 3,
-            opacity = math.random(0, 10) / 10
+            opacity = 0
         },
         Makeup = {
             overlay = 4,
             colour = math.random(GetPedHeadOverlayNum(4) + 1) - 1,
-            opacity = math.random(0, 10) / 10
+            opacity = 0
         },
         Blush = {
             overlay = 5,
-            opacity = math.random(0, 10) / 10
+            opacity = 0
         },
         Complexion = {
             overlay = 6,
-            opacity = math.random(0, 10) / 10
+            opacity = 0
         },
         SunDamage = {
             overlay = 7
@@ -127,11 +127,11 @@ local state = {
         Lipstick = {
             overlay = 8,
             colour = math.random(GetPedHeadOverlayNum(8) + 1) - 1,
-            opacity = math.random(0, 10) / 10
+            opacity = 0
         },
         MolesFreckles = {
             overlay = 9,
-            opacity = math.random(0, 10) / 10
+            opacity = 0
         },
         ChestHair = {
             overlay = 10
@@ -161,85 +161,94 @@ function RandomizeAppearance()
             MixSkin = math.random(0, 10) / 10,
         },
         Features = {
-            [0] = (math.random(0, 10) - 1) / 10,
-            [1] = (math.random(0, 10) - 1) / 10,
-            [2] = (math.random(0, 10) - 1) / 10,
-            [3] = (math.random(0, 10) - 1) / 10,
-            [4] = (math.random(0, 10) - 1) / 10,
-            [5] = (math.random(0, 10) - 1) / 10,
-            [6] = (math.random(0, 10) - 1) / 10,
-            [7] = (math.random(0, 10) - 1) / 10,
-            [8] = (math.random(0, 10) - 1) / 10,
-            [9] = (math.random(0, 10) - 1) / 10,
-            [10] = (math.random(0, 10) - 1) / 10,
-            [11] = (math.random(0, 10) - 1) / 10,
-            [12] = (math.random(0, 10) - 1) / 10,
-            [13] = (math.random(0, 10) - 1) / 10,
-            [14] = (math.random(0, 10) - 1) / 10,
-            [15] = (math.random(0, 10) - 1) / 10,
-            [16] = (math.random(0, 10) - 1) / 10,
-            [17] = (math.random(0, 10) - 1) / 10,
-            [18] = (math.random(0, 10) - 1) / 10
+            [0] = 0.5,
+            [1] = 0.5,
+            [2] = 0.5,
+            [3] = 0.5,
+            [4] = 0.5,
+            [5] = 0.5,
+            [6] = 0.5,
+            [7] = 0.5,
+            [8] = 0.5,
+            [9] = 0.5,
+            [10] = 0.5,
+            [11] = 0.5,
+            [12] = 0.5,
+            [13] = 0.5,
+            [14] = 0.5,
+            [15] = 0.5,
+            [16] = 0.5,
+            [17] = 0.5,
+            [18] = 0.5
         },
         Overlays = {
             Blemishes = {
                 overlay = 0,
-                opacity = math.random(0, 10) / 10
+                index = math.random(GetPedHeadOverlayNum(0) + 1) - 1,
+                opacity = 0
             },
             FacialHair = {
                 overlay = 1,
-                colour = math.random(GetPedHeadOverlayNum(1) + 1) - 1,
-                opacity = math.random(0, 10) / 10
+                index = math.random(GetPedHeadOverlayNum(1) + 1) - 1,
+                opacity = 0
             },
             Eyebrows = {
                 overlay = 2,
-                colour = math.random(GetPedHeadOverlayNum(2) + 1) - 1,
-                opacity = math.random(0, 10) / 10
+                index = math.random(GetPedHeadOverlayNum(2) + 1) - 1,
+                colour = 0,
+                opacity = 0
             },
             Ageing = {
                 overlay = 3,
-                opacity = math.random(0, 10) / 10
+                index = math.random(GetPedHeadOverlayNum(3) + 1) - 1,
+                opacity = 0
             },
             Makeup = {
                 overlay = 4,
-                colour = math.random(GetPedHeadOverlayNum(4) + 1) - 1,
-                opacity = math.random(0, 10) / 10
+                index = math.random(GetPedHeadOverlayNum(4) + 1) - 1,
+                colour = 0,
+                opacity = 0
             },
             Blush = {
                 overlay = 5,
-                opacity = math.random(0, 10) / 10
+                index = math.random(GetPedHeadOverlayNum(5) + 1) - 1,
+                opacity = 0
             },
             Complexion = {
                 overlay = 6,
-                opacity = math.random(0, 10) / 10
+                index = math.random(GetPedHeadOverlayNum(6) + 1) - 1,
+                opacity = 0
             },
             SunDamage = {
-                overlay = 7
+                overlay = 7,
+                index = math.random(GetPedHeadOverlayNum(7) + 1) - 1,
             },
             Lipstick = {
                 overlay = 8,
-                colour = math.random(GetPedHeadOverlayNum(8) + 1) - 1,
-                opacity = math.random(0, 10) / 10
+                index = math.random(GetPedHeadOverlayNum(8) + 1) - 1,
+                colour = 0,
+                opacity = 0
             },
             MolesFreckles = {
                 overlay = 9,
-                opacity = math.random(0, 10) / 10
+                index = math.random(GetPedHeadOverlayNum(9) + 1) - 1,
+                opacity = 0
             },
             ChestHair = {
-                overlay = 10
+                overlay = 10,
+                index = math.random(GetPedHeadOverlayNum(10) + 1) - 1
             },
             BodyBlemishes = {
-                overlay = 11
+                overlay = 11,
+                index = math.random(GetPedHeadOverlayNum(11) + 1) - 1
             },
             AddBodyBlemishes = {
-                overlay = 12
+                overlay = 12,
+                index = math.random(GetPedHeadOverlayNum(12) + 1) - 1
             }
         },
-        Components = {
-            Head = { 0, 0 },
-            Mask = { 0, 0 },
-        },
         Props = {}
+        Components = {},
     }
 end
 
