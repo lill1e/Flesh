@@ -143,11 +143,8 @@ local state = {
             overlay = 12
         }
     },
-    Components = {
-        Head = { 0, 0 },
-        Mask = { 0, 0 },
-    },
     Props = {}
+    Components = {},
 }
 
 function RandomizeAppearance()
