@@ -298,6 +298,7 @@ function RageUI.PoolMenus:Skin()
         Items:AddButton("Appearance", "", { RightLabel = "→→→" }, function(onSelected) end, appearanceMenu)
         Items:AddButton("Apparel", "", { RightLabel = "→→→" }, function(onSelected) end, apparelMenu)
     end, function(Panels)
+    end)
 
     heritageMenu:IsVisible(function(Items)
         Items:Heritage(heritageMother[mothers[state.Parents.MotherIndex]] - 1, heritageFather
