@@ -305,10 +305,10 @@ function apply()
                 ((i == 1 and featureData.inverseX or featureData.inverseY) and -1 or 1))
         end
     end
-    SetPedEyeColor(PlayerPedId(), state.EyeColour)
-    SetPedHairTint(PlayerPedId(), state.HairColour[1], state.HairColour[2])
     SetPedHeadBlendData(PlayerPedId(), state.Parents.Mother, state.Parents.Father, 0, state.Parents.Mother,
         state.Parents.Father, 0, state.Parents.MixChar, state.Parents.MixSkin, 0, false)
+    SetPedHairTint(PlayerPedId(), state.HairColour[1], state.HairColour[2])
+    SetPedEyeColor(PlayerPedId(), state.EyeColour)
 end
 
 function TableEmpty(tbl)
