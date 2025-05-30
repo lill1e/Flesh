@@ -347,6 +347,10 @@ function RageUI.PoolMenus:Skin()
     end)
 end
 
+RegisterCommand("dump", function()
+    print(json.encode(state))
+end, false)
+
 Citizen.CreateThread(function()
     while true do
         Wait(0)
