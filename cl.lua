@@ -266,6 +266,20 @@ function apply()
     SetPlayerModel(PlayerId(), model)
     SetModelAsNoLongerNeeded(model)
     SetPedDefaultComponentVariation(PlayerPedId())
+    for n, component in pairs(Config.Components) do
+        if n ~= "Hair" then
+            state.Components[component] = {
+                GetPedDrawableVariation(PlayerPedId(), component) + 2,
+                GetPedTextureVariation(PlayerPedId(), component) + 1
+            }
+        end
+    end
+    for _, prop in pairs(Config.Props) do
+        state.Props[prop] = {
+            GetPedPropIndex(PlayerPedId(), prop) + 2,
+            GetPedPropTextureIndex(PlayerPedId(), prop) + 1
+        }
+    end
     SetPedHeadBlendData(PlayerPedId(), state.Parents.Mother, state.Parents.Father, 0, state.Parents.Mother,
         state.Parents.Father, 0, state.Parents.MixChar, state.Parents.MixSkin, 0, false)
 end
@@ -355,23 +369,66 @@ function RageUI.PoolMenus:Skin()
     apparelMenu:IsVisible(function(Items)
         for _, value in ipairs(Config.Menu.Apparel) do
             if value.type == "Component" then
-                Items:AddList(value.displayName, nTable(GetNumberOfPedDrawableVariations(PlayerPedId(), value.name)),
-                    GetPedDrawableVariation(PlayerPedId(), value.name),
+                Items:AddList(value.displayName,
+                    nTable(GetNumberOfPedDrawableVariations(PlayerPedId(), value.name), true),
+                    GetPedDrawableVariation(PlayerPedId(), value.name) + 2,
                     "Total: " .. GetNumberOfPedDrawableVariations(PlayerPedId(), value.name), {},
                     function(Index, onSelected, onListChange)
                         if onListChange then
+                            state.Components[value.name] = { Index, 0 }
                             SetPedComponentVariation(PlayerPedId(), value.name, Index - 2, 0, 0)
                         end
                     end)
+                if GetNumberOfPedTextureVariations(PlayerPedId(), value.name, GetPedDrawableVariation(PlayerPedId(), value.name)) > 1 then
+                    Items:AddList(value.displayName .. " (Style)",
+                        nTable(
+                            GetNumberOfPedTextureVariations(PlayerPedId(), value.name,
+                                GetPedDrawableVariation(PlayerPedId(), value.name)), false),
+                        GetPedTextureVariation(PlayerPedId(), value.name) + 1,
+                        "Total: " ..
+                        GetNumberOfPedTextureVariations(PlayerPedId(), value.name,
+                            GetPedDrawableVariation(PlayerPedId(), value.name)), {},
+                        function(Index, onSelected, onListChange)
+                            if onListChange then
+                                state.Components[value.name] = { state.Components[value.name][1], Index }
+                                SetPedComponentVariation(PlayerPedId(), value.name,
+                                    GetPedDrawableVariation(PlayerPedId(), value.name), Index - 1, 0)
+                            end
+                        end)
+                end
             else
-                Items:AddList(value.displayName, nTable(GetNumberOfPedPropDrawableVariations(PlayerPedId(), value.name)),
-                    GetPedPropIndex(PlayerPedId(), value.name),
+                Items:AddList(value.displayName,
+                    nTable(GetNumberOfPedPropDrawableVariations(PlayerPedId(), value.name), true),
+                    GetPedPropIndex(PlayerPedId(), value.name) + 2,
                     "Total: " .. GetNumberOfPedPropDrawableVariations(PlayerPedId(), value.name), {},
                     function(Index, onSelected, onListChange)
                         if onListChange then
-                            SetPedPropIndex(PlayerPedId(), value.name, Index - 2, 0, true)
+                            if Index == 1 then
+                                state.Props[value.name] = { -1, 0 }
+                                ClearPedProp(PlayerPedId(), value.name)
+                            else
+                                state.Props[value.name] = { Index, 0 }
+                                SetPedPropIndex(PlayerPedId(), value.name, Index - 2, 0, true)
+                            end
                         end
                     end)
+                if GetNumberOfPedPropTextureVariations(PlayerPedId(), value.name, GetPedPropIndex(PlayerPedId(), value.name)) > 1 then
+                    Items:AddList(value.displayName .. " (Style)",
+                        nTable(
+                            GetNumberOfPedPropTextureVariations(PlayerPedId(), value.name,
+                                GetPedPropIndex(PlayerPedId(), value.name)), false),
+                        GetPedPropTextureIndex(PlayerPedId(), value.name) + 1,
+                        "Total: " ..
+                        GetNumberOfPedPropTextureVariations(PlayerPedId(), value.name,
+                            GetPedPropIndex(PlayerPedId(), value.name)), {},
+                        function(Index, onSelected, onListChange)
+                            if onListChange then
+                                state.Props[value.name] = { state.Props[value.name][1], Index }
+                                SetPedPropIndex(PlayerPedId(), value.name, GetPedPropIndex(PlayerPedId(), value.name),
+                                    Index - 1, true)
+                            end
+                        end)
+                end
             end
         end
     end, function(Panels)
