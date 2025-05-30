@@ -4,8 +4,8 @@ local featuresMenu = RageUI.CreateSubMenu(menu, "Character", "~d~Features")
 local appearanceMenu = RageUI.CreateSubMenu(menu, "Character", "~d~Appearance")
 local apparelMenu = RageUI.CreateSubMenu(menu, "Character", "~d~Apparel")
 
-featuresMenu.EnableMouse = true
-appearanceMenu.EnableMouse = true
+featuresMenu:ToggleMouse()
+appearanceMenu:ToggleMouse()
 
 --[
 -- Feature ::= { [-1, 1] }
