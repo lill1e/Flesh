@@ -5,8 +5,14 @@ author "lillie"
 description "meow :3"
 
 client_scripts {
-    "cl.lua",
-    "cfg.lua"
+    "RageUI/RageUI.lua",
+    "RageUI/Menu.lua",
+    "RageUI/MenuController.lua",
+    "RageUI/components/*.lua",
+    "RageUI/elements/*.lua",
+    "RageUI/items/*.lua",
+    "cfg.lua",
+    "cl.lua"
 }
 
 version "1.0.0"
