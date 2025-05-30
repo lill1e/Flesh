@@ -265,6 +265,21 @@ function apply()
         state.Parents.Father, 0, state.Parents.MixChar, state.Parents.MixSkin, 0, false)
 end
 
+function TableEmpty(tbl)
+    for _, _ in pairs(tbl) do
+        return false
+    end
+    return true
+end
+
+if TableEmpty(save) or true then
+    RandomizeAppearance()
+else
+    state = save
+end
+
+apply()
+
 function GetFeatureValue(value, inverseHuh)
     return (value * 2 - 1) * (inverseHuh and -1 or 1)
 end
@@ -274,6 +289,7 @@ function RageUI.PoolMenus:Skin()
         Items:AddList("Sex", { "Male", "Female" }, state.Sex, "", {}, function(Index, onSelected, onListChange)
             if onListChange then
                 state.Sex = Index
+                RandomizeAppearance()
                 apply()
             end
         end)
