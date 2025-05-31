@@ -240,6 +240,7 @@ else
     state = save
 end
 
+RandomizeAppearance()
 apply()
 
 function GetFeatureValue(value, inverseHuh)
