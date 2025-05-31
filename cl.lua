@@ -172,7 +172,7 @@ function RandomizeAppearance()
         Components = {},
         Props = {},
         EyeColour = 1,
-        HairColour = { GetPedHairColor(PlayerPedId()) - 1, GetPedHairHighlightColor(PlayerPedId()) - 1 }
+        HairColour = { 0, 0 }
     }
 end
 
