@@ -118,67 +118,55 @@ function RandomizeAppearance()
         Overlays = {
             Blemishes = {
                 overlay = 0,
-                index = math.random(GetPedHeadOverlayNum(0) + 1) - 1,
                 opacity = 0
             },
             FacialHair = {
-                overlay = 1,
-                index = math.random(GetPedHeadOverlayNum(1) + 1) - 1,
+                overlay = 0,
+                colour = { 0, 0 },
                 opacity = 0
             },
             Eyebrows = {
-                overlay = 2,
-                index = math.random(GetPedHeadOverlayNum(2) + 1) - 1,
-                colour = 0,
+                overlay = 0,
+                colour = { 0, 0 },
                 opacity = 0
             },
             Ageing = {
-                overlay = 3,
-                index = math.random(GetPedHeadOverlayNum(3) + 1) - 1,
+                overlay = 0,
                 opacity = 0
             },
             Makeup = {
-                overlay = 4,
-                index = math.random(GetPedHeadOverlayNum(4) + 1) - 1,
-                colour = 0,
+                overlay = 0,
+                colour = { 0, 0 },
                 opacity = 0
             },
             Blush = {
-                overlay = 5,
-                index = math.random(GetPedHeadOverlayNum(5) + 1) - 1,
+                overlay = 0,
                 opacity = 0
             },
             Complexion = {
-                overlay = 6,
-                index = math.random(GetPedHeadOverlayNum(6) + 1) - 1,
+                overlay = 0,
                 opacity = 0
             },
             SunDamage = {
-                overlay = 7,
-                index = math.random(GetPedHeadOverlayNum(7) + 1) - 1,
+                overlay = 0,
             },
             Lipstick = {
-                overlay = 8,
-                index = math.random(GetPedHeadOverlayNum(8) + 1) - 1,
-                colour = 0,
+                overlay = 0,
+                colour = { 0, 0 },
                 opacity = 0
             },
             MolesFreckles = {
-                overlay = 9,
-                index = math.random(GetPedHeadOverlayNum(9) + 1) - 1,
+                overlay = 0,
                 opacity = 0
             },
             ChestHair = {
-                overlay = 10,
-                index = math.random(GetPedHeadOverlayNum(10) + 1) - 1
+                overlay = 0,
             },
             BodyBlemishes = {
-                overlay = 11,
-                index = math.random(GetPedHeadOverlayNum(11) + 1) - 1
+                overlay = 0,
             },
             AddBodyBlemishes = {
-                overlay = 12,
-                index = math.random(GetPedHeadOverlayNum(12) + 1) - 1
+                overlay = 0,
             }
         },
         Components = {},
