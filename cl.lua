@@ -149,6 +149,7 @@ function RandomizeAppearance()
             },
             SunDamage = {
                 overlay = 0,
+                opacity = 0
             },
             Lipstick = {
                 overlay = 0,
