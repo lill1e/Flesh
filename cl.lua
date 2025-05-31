@@ -197,6 +197,8 @@ function apply()
     SetPlayerModel(PlayerId(), model)
     SetModelAsNoLongerNeeded(model)
     SetPedDefaultComponentVariation(PlayerPedId())
+    SetPedHeadBlendData(PlayerPedId(), state.Parents.Mother, state.Parents.Father, 0, state.Parents.Mother,
+        state.Parents.Father, 0, state.Parents.MixChar, state.Parents.MixSkin, 0, false)
     for n, component in pairs(Config.Components) do
         if n ~= "Hair" then
             state.Components[component] = {
@@ -221,8 +223,6 @@ function apply()
                 ((i == 1 and featureData.inverseX or featureData.inverseY) and -1 or 1))
         end
     end
-    SetPedHeadBlendData(PlayerPedId(), state.Parents.Mother, state.Parents.Father, 0, state.Parents.Mother,
-        state.Parents.Father, 0, state.Parents.MixChar, state.Parents.MixSkin, 0, false)
     SetPedHairTint(PlayerPedId(), state.HairColour[1], state.HairColour[2])
     SetPedEyeColor(PlayerPedId(), state.EyeColour)
 end
