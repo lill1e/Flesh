@@ -76,93 +76,9 @@ local colCache = {
 }
 
 local save = {}
+
 local state = {
-    Sex = RandomSex(),
-    Parents = {
-        Mother = -1,
-        Father = -1,
-        MixChar = 0.5,
-        MixSkin = 0.5,
-    },
-    Features = {
-        [0] = 0.5,
-        [1] = 0.5,
-        [2] = 0.5,
-        [3] = 0.5,
-        [4] = 0.5,
-        [5] = 0.5,
-        [6] = 0.5,
-        [7] = 0.5,
-        [8] = 0.5,
-        [9] = 0.5,
-        [10] = 0.5,
-        [11] = 0.5,
-        [12] = 0.5,
-        [13] = 0.5,
-        [14] = 0.5,
-        [15] = 0.5,
-        [16] = 0.5,
-        [17] = 0.5,
-        [18] = 0.5
-    },
-    Overlays = {
-        Blemishes = {
-            overlay = 0,
-            opacity = 0
-        },
-        FacialHair = {
-            overlay = 1,
-            colour = math.random(GetPedHeadOverlayNum(1) + 1) - 1,
-            opacity = 0
-        },
-        Eyebrows = {
-            overlay = 2,
-            colour = math.random(GetPedHeadOverlayNum(2) + 1) - 1,
-            opacity = 0
-        },
-        Ageing = {
-            overlay = 3,
-            opacity = 0
-        },
-        Makeup = {
-            overlay = 4,
-            colour = math.random(GetPedHeadOverlayNum(4) + 1) - 1,
-            opacity = 0
-        },
-        Blush = {
-            overlay = 5,
-            opacity = 0
-        },
-        Complexion = {
-            overlay = 6,
-            opacity = 0
-        },
-        SunDamage = {
-            overlay = 7
-        },
-        Lipstick = {
-            overlay = 8,
-            colour = math.random(GetPedHeadOverlayNum(8) + 1) - 1,
-            opacity = 0
-        },
-        MolesFreckles = {
-            overlay = 9,
-            opacity = 0
-        },
-        ChestHair = {
-            overlay = 10
-        },
-        BodyBlemishes = {
-            overlay = 11
-        },
-        AddBodyBlemishes = {
-            overlay = 12
-        }
-    },
-    Components = {},
-    Props = {},
-    EyeColour = 1,
-    HairColour = { GetPedHairColor(PlayerPedId()) - 1, GetPedHairHighlightColor(PlayerPedId()) - 1 }
+    Sex = 1
 }
 
 function RandomizeAppearance()
