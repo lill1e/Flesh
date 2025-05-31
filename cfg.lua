@@ -394,7 +394,7 @@ Config = {
             { displayName = "Skin Aging",       type = "Overlays",  name = "Ageing" },
             { displayName = "Skin Complexion",  type = "Overlays",  name = "Complexion" },
             { displayName = "Moles & Freckles", type = "Overlays",  name = "MolesFreckles" },
-            -- { displayName = "Skin Damage (BROKEN)", type = "Overlays",  name = "SunDamage" },
+            { displayName = "Skin Damage",      type = "Overlays",  name = "SunDamage" },
             { displayName = "Eye Color",        type = "EyeColour", name = "" },
             { displayName = "Eye Makeup",       type = "Overlays",  name = "Makeup" },
             { displayName = "Blusher",          type = "Overlays",  name = "Blush" },
