@@ -187,6 +187,13 @@ function apply()
     SetPedDefaultComponentVariation(PlayerPedId())
     SetPedHeadBlendData(PlayerPedId(), state.Parents.Mother, state.Parents.Father, 0, state.Parents.Mother,
         state.Parents.Father, 0, state.Parents.MixChar, state.Parents.MixSkin, 0, false)
+    for feature, featureData in pairs(Config.Features) do
+        for i, featureNum in ipairs(featureData.features) do
+            SetPedFaceFeature(PlayerPedId(), featureNum,
+                (state.Features[featureNum] * 2 - 1) *
+                ((i == 1 and featureData.inverseX or featureData.inverseY) and -1 or 1))
+        end
+    end
     for n, component in pairs(Config.Components) do
         if n ~= "Hair" then
             state.Components[component] = {
@@ -204,11 +211,6 @@ function apply()
             GetPedPropTextureIndex(PlayerPedId(), prop) + 1
         }
     end
-    for feature, featureData in pairs(Config.Features) do
-        for i, featureNum in ipairs(featureData.features) do
-            SetPedFaceFeature(PlayerPedId(), featureNum,
-                (state.Features[featureNum] * 2 - 1) *
-                ((i == 1 and featureData.inverseX or featureData.inverseY) and -1 or 1))
         end
     end
     SetPedHairTint(PlayerPedId(), state.HairColour[1], state.HairColour[2])
