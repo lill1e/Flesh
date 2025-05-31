@@ -174,6 +174,13 @@ function RandomizeAppearance()
         EyeColour = 1,
         HairColour = { 0, 0 }
     }
+    for k, v in pairs(colCache) do
+        if type(colCache[k]) == "table" then
+            colCache[k] = { 1, 1 }
+        else
+            colCache[k] = 1
+        end
+    end
 end
 
 function apply()
@@ -211,6 +218,12 @@ function apply()
             GetPedPropTextureIndex(PlayerPedId(), prop) + 1
         }
     end
+    for k, v in pairs(Config.Overlays) do
+        SetPedHeadOverlay(PlayerPedId(), v.overlay, state.Overlays[k].overlay,
+            v.opacity and ((k ~= "FacialHair" or state.Sex == 1) and state.Overlays[k].opacity or 0) or 1)
+        if v.colour then
+            SetPedHeadOverlayColor(PlayerPedId(), v.overlay, 1, state.Overlays[k].colour[1],
+                state.Overlays[k].colour[2])
         end
     end
     SetPedHairTint(PlayerPedId(), state.HairColour[1], state.HairColour[2])
@@ -341,6 +354,24 @@ function RageUI.PoolMenus:Skin()
                             SetPedComponentVariation(PlayerPedId(), v.name, Index - 1, 0, 0)
                         end
                     end)
+            elseif v.type == "Overlays" then
+                if v.name ~= "FacialHair" or state.Sex == 1 then
+                    Items:AddList(v.displayName, nTable(GetPedHeadOverlayNum(Config.Overlays[v.name].overlay), false),
+                        state.Overlays[v.name].overlay + 1,
+                        "Total: " .. GetPedHeadOverlayNum(Config.Overlays[v.name].overlay), {},
+                        function(Index, onSelected, onListChange)
+                            if onListChange then
+                                state.Overlays[v.name].overlay = Index - 1
+                                SetPedHeadOverlay(PlayerPedId(), Config.Overlays[v.name].overlay,
+                                    state.Overlays[v.name].overlay, state.Overlays[v.name].opacity)
+                            end
+                        end)
+                else
+                    Items:AddButton(v.displayName, "Make changes to your Appearance", { IsDisabled = true },
+                        function(onSelected, onActive)
+
+                        end)
+                end
             elseif v.type == "EyeColour" then
                 Items:AddList("Eye Color", Config.EyeColours, GetPedEyeColor(PlayerPedId()),
                     "Make changes to your Appearance", {}, function(Index, onSelected, onListChange)
@@ -371,6 +402,40 @@ function RageUI.PoolMenus:Skin()
                             SetPedHairTint(PlayerPedId(), state.HairColour[1], CurrentIndex - 1)
                         end
                     end, i)
+            elseif v.type == "Overlays" and (v.name ~= "FacialHair" or state.Sex == 1) then
+                if Config.Overlays[v.name].opacity then
+                    Panels:PercentagePanel(state.Overlays[v.name].opacity, nil, nil, nil,
+                        function(Hovered, Selected, Percent)
+                            if Selected then
+                                state.Overlays[v.name].opacity = Percent
+                                SetPedHeadOverlay(PlayerPedId(), Config.Overlays[v.name].overlay,
+                                    state.Overlays[v.name].overlay, state.Overlays[v.name].opacity)
+                            end
+                        end, i)
+                end
+                if Config.Overlays[v.name].colour then
+                    if not colCache[i] then
+                        colCache[i] = { 1, 1 }
+                    end
+                    Panels:ColourPanel(v.displayName .. " Color", RageUI.PanelColour.HairCut, colCache[i][1],
+                        state.Overlays[v.name].colour[1] + 1, function(Hovered, Selected, MinimumIndex, CurrentIndex)
+                            if Selected then
+                                colCache[i][1] = MinimumIndex
+                                state.Overlays[v.name].colour[1] = CurrentIndex - 1
+                                SetPedHeadOverlayColor(PlayerPedId(), Config.Overlays[v.name].overlay, 1,
+                                    state.Overlays[v.name].colour[1], state.Overlays[v.name].colour[2])
+                            end
+                        end, i)
+                    -- Panels:ColourPanel(v.displayName .. " Color (Highlight)", RageUI.PanelColour.HairCut, colCache[i][2],
+                    --     state.Overlays[v.name].colour[2] + 1, function(Hovered, Selected, MinimumIndex, CurrentIndex)
+                    --         if Selected then
+                    --             colCache[i][2] = MinimumIndex
+                    --             state.Overlays[v.name].colour[2] = CurrentIndex - 1
+                    --             SetPedHeadOverlayColor(PlayerPedId(), Config.Overlays[v.name].overlay, 1,
+                    --                 state.Overlays[v.name].colour[1], state.Overlays[v.name].colour[2])
+                    --         end
+                    --     end, i)
+                end
             end
         end
     end)
